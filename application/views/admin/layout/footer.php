@@ -106,6 +106,14 @@
         document.getElementById('email').value = email;
     }
 
+    function editPromosi(id, photo, keterangan, tgl_awal, tgl_akhir) {
+        document.getElementById('id_promosi').value = id;
+        document.getElementById('gambar_temp').value = photo;
+        document.getElementById('keterangan').value = keterangan;
+        document.getElementById('tgl_awal').value = tgl_awal;
+        document.getElementById('tgl_akhir').value = tgl_akhir;
+    }
+
     function PreviewImage() {
         var oFReader = new FileReader();
         oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);

@@ -81,12 +81,12 @@ class Laundry_model extends MY_Model
 
         if (!$this->db->error()) {
             $code = 500;
-            $message = "Gagal Registrasi";
+            $message = "Gagal tampil";
             $dataResponse = NULL;
             $error = TRUE;
         } else {
             $code = 201;
-            $message = "Berhasil Registrasi";
+            $message = "Berhasil tampilkan data";
             $dataResponse = $data;
             $error = NULL;
         }
@@ -103,12 +103,12 @@ class Laundry_model extends MY_Model
 
         if (!$this->db->error()) {
             $code = 500;
-            $message = "Gagal Registrasi";
+            $message = "Gagal Menampilkan detail";
             $dataResponse = NULL;
             $error = TRUE;
         } else {
             $code = 201;
-            $message = "Berhasil Registrasi";
+            $message = "Berhasil Menampilkan data detail laundry";
             $dataResponse = $result;
             $error = NULL;
         }

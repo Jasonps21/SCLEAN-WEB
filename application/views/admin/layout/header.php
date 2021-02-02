@@ -63,7 +63,7 @@
                             <li <?php if ($this->uri->segment(1) == "Dashboard") {
                                     echo 'class="active"';
                                 } ?>><a href="<?php echo base_url(); ?>Dashboard"><i class="ti-dashboard"></i><span>dashboard</span></a></li>
-                            <li <?php if ($this->uri->segment(1) == "Admin" or $this->uri->segment(1) == "Pengguna" or $this->uri->segment(1) == "Laundry") {
+                            <li <?php if ($this->uri->segment(1) == "Admin" or $this->uri->segment(1) == "Pengguna" or $this->uri->segment(1) == "Laundry" or $this->uri->segment(1) == "Promosi") {
                                     echo 'class="active"';
                                 } ?>>
                                 <a href="javascript:void(0)" aria-expanded="true"><i class="ti-archive"></i><span>Master Data </span></a>
@@ -77,6 +77,9 @@
                                     <li <?php if ($this->uri->segment(1) == "Pengguna") {
                                             echo 'class="active"';
                                         } ?>><a href="<?php echo base_url(); ?>Pengguna"><i class="ti-user"></i><span>Pengguna</span></a></li>
+                                    <li <?php if ($this->uri->segment(1) === "Promosi") {
+                                            echo 'class="active"';
+                                        } ?>><a href="<?php echo base_url(); ?>Promosi"><i class="ti-gift"></i><span>Promosi</span></a></li>
                                 </ul>
                             </li>
                             <li <?php if ($this->uri->segment(1) == "Pemesanan" or $this->uri->segment(1) == "") {

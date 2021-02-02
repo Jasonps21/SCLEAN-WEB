@@ -53,6 +53,12 @@ class User_model extends MY_Model
                         "email" => $currentData->email,
                         "nama_lengkap" => $currentData->nama_lengkap,
                         "nomor_hp" => $currentData->nomor_hp,
+                        "alamat" => $currentData->alamat,
+                        "kota" => $currentData->kota,
+                        "kecamatan" => $currentData->kecamatan,
+                        "kelurahan" => $currentData->kelurahan,
+                        "kode_pos" => $currentData->kode_pos,
+                        "keterangan_alamat" => $currentData->keterangan_alamat,
                         "photo" => 'https://jrlifesciences.com/wp-content/uploads/2018/09/gravatar.jpg',
                     );
                     $code = 200;

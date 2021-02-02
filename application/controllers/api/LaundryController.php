@@ -26,7 +26,7 @@ class LaundryController extends RestController
 		$id = $this->input->get('id');
 
 		$filter = array();
-		$filter['id'] = $this->post('id');		
+		$filter['id'] = $this->get('id');		
 
 		foreach ($filter as $key => $value) {
 			if (empty($value)) {

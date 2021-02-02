@@ -5,7 +5,7 @@ class Laporan_model extends CI_Model
 
     function daftarLaporan($tgl_awal, $tgl_akhir)
     {
-        $result = $this->db->query("SELECT `tbl_pemesan`.`id_pemesanan`, `tbl_barang`.`nama_barang`, `tbl_pemesan_detail`.`stok`, `tbl_pemesan_detail`.`harga`, `tbl_pemesan_detail`.`total`, `tbl_user`.`nama`, `tbl_pemesan`.`tgl_pesan`, `tbl_pemesan`.`total`, `tbl_pemesan`.`tgl_bayar` FROM `tbl_pemesan` INNER JOIN `tbl_user` ON `tbl_user`.`id_user` = `tbl_pemesan`.`id_user` INNER JOIN `tbl_pemesan_detail` ON `tbl_pemesan_detail`.`id_pemesanan` = `tbl_pemesan`.`id_pemesanan` INNER JOIN `tbl_barang` ON `tbl_pemesan_detail`.`id_barang` = `tbl_barang`.`id_barang` WHERE `tbl_pemesan`.`status` = '3' AND `tbl_pemesan`.`tgl_pesan` >= '".$tgl_awal."' AND `tbl_pemesan`.`tgl_pesan` <= '".$tgl_akhir."'");
+        $result = $this->db->query("SELECT p.nomor_pesanan, p.tgl_pesan, l.nama_laundry, ll.nama_layanan, pd.qty, ll.satuan, pd.harga, pd.total FROM tbl_pemesan_detail pd INNER JOIN tbl_pemesan p ON p.id_pesanan = pd.id_pemesanan INNER JOIN tbl_laundry l ON l.id_laundry = p.id_laundry INNER JOIN tbl_layanan_laundry ll ON ll.id = pd.id_layanan WHERE p.tgl_pesan BETWEEN '$tgl_awal' AND '$tgl_akhir'");
         return $result;
     }
 

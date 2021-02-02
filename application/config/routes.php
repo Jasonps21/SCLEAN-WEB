@@ -63,6 +63,10 @@ $route['api/v1/update_alamat'] = 'api/UserController/update_alamat';
 $route['api/v1/laundry_all'] = 'api/LaundryController/AllLaundry';
 $route['api/v1/laundry_detail'] = 'api/LaundryController/detailLaundry';
 $route['api/v1/input_pesanan'] = 'api/PesananController/inputCheckout';
+$route['api/v1/history_pesanan'] = 'api/PesananController/historyPesanan';
+$route['api/v1/detail_pesanan'] = 'api/PesananController/historyPesananDetail';
+$route['api/v1/batalkan_pesanan'] = 'api/PesananController/batalkanPesanan';
+$route['api/v1/promosi_all'] = 'api/PromosiController/AllPromosiLaundry';
 
 //user
 $route['login'] = 'user/login';
