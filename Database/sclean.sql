@@ -11,7 +11,7 @@
  Target Server Version : 100411
  File Encoding         : 65001
 
- Date: 31/01/2021 08:52:36
+ Date: 02/02/2021 13:24:17
 */
 
 SET NAMES utf8mb4;
@@ -35,7 +35,7 @@ CREATE TABLE `tbl_admin`  (
 -- ----------------------------
 -- Records of tbl_admin
 -- ----------------------------
-INSERT INTO `tbl_admin` VALUES (2, 'Chandra 2', 'chandra@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'Admin', '2021-01-30 16:04:16', '2021-01-30 09:17:13');
+INSERT INTO `tbl_admin` VALUES (2, 'Chandra 2', 'chandra@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'Admin', '2021-02-02 11:48:00', '2021-01-30 09:17:13');
 INSERT INTO `tbl_admin` VALUES (3, 'Jason', 'jason@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', 'Admin', NULL, NULL);
 
 -- ----------------------------
@@ -110,9 +110,9 @@ CREATE TABLE `tbl_pemesan`  (
   `tgl_pesan` datetime(0) NOT NULL,
   `total` decimal(30, 2) NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT 0,
-  `tgl_bayar` datetime(0) NULL DEFAULT NULL,
+  `tgl_konfirmasi` datetime(0) NULL DEFAULT NULL,
   `tgl_status` datetime(0) NULL DEFAULT NULL,
-  `tgl_pengantaran` datetime(0) NULL DEFAULT NULL,
+  `tgl_selesai` datetime(0) NULL DEFAULT NULL,
   `catatan_order` text CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL,
   PRIMARY KEY (`id_pesanan`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Compact;
@@ -120,7 +120,7 @@ CREATE TABLE `tbl_pemesan`  (
 -- ----------------------------
 -- Records of tbl_pemesan
 -- ----------------------------
-INSERT INTO `tbl_pemesan` VALUES ('be3fb093-d55c-4984-986c-ecda68976fb3', 'INV-20210131001', 'c93777fe-3e01-402d-8876-75cf0d54cb21', '65678b8f-14f9-4d6c-9a0f-e8da79b93640', '2021-01-31 01:00:52', 39000.00, 0, NULL, NULL, NULL, NULL);
+INSERT INTO `tbl_pemesan` VALUES ('be3fb093-d55c-4984-986c-ecda68976fb3', 'INV-20210131001', 'c93777fe-3e01-402d-8876-75cf0d54cb21', '65678b8f-14f9-4d6c-9a0f-e8da79b93640', '2021-01-31 01:00:52', 39000.00, 2, '2021-02-02 12:46:37', '2021-02-02 12:46:43', '2021-02-02 12:46:43', NULL);
 
 -- ----------------------------
 -- Table structure for tbl_pemesan_detail
@@ -139,6 +139,27 @@ CREATE TABLE `tbl_pemesan_detail`  (
 -- ----------------------------
 INSERT INTO `tbl_pemesan_detail` VALUES ('be3fb093-d55c-4984-986c-ecda68976fb3', 'fe5e10ec-2e85-42b1-9e2a-1203d72f9b08', 3, 6000.00, 18000.00);
 INSERT INTO `tbl_pemesan_detail` VALUES ('be3fb093-d55c-4984-986c-ecda68976fb3', '44d93641-19a4-470e-bc70-b2dd6b08da1a', 3, 7000.00, 21000.00);
+
+-- ----------------------------
+-- Table structure for tbl_promosi
+-- ----------------------------
+DROP TABLE IF EXISTS `tbl_promosi`;
+CREATE TABLE `tbl_promosi`  (
+  `id` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `photo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `keterangan` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `tgl_awal` date NOT NULL,
+  `tgl_akhir` date NOT NULL,
+  `create_date` datetime(0) NULL DEFAULT NULL,
+  `update_date` datetime(0) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tbl_promosi
+-- ----------------------------
+INSERT INTO `tbl_promosi` VALUES ('1f0caafb-371a-4df8-95e5-c4d1ae7aa915', '1f0caafb-371a-4df8-95e5-c4d1ae7aa915.jpg', 'Promo Pertama dibulan februari', '2021-02-02', '2021-02-04', '2021-02-02 03:34:28', NULL);
+INSERT INTO `tbl_promosi` VALUES ('8afe5f4c-fcfb-4677-bc4c-b910e90fc239', '8afe5f4c-fcfb-4677-bc4c-b910e90fc239.jpg', 'Promo kedua dibulan februari', '2021-02-02', '2021-02-06', '2021-02-02 03:34:53', NULL);
 
 -- ----------------------------
 -- Table structure for tbl_user

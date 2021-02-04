@@ -87,7 +87,7 @@ class PesananController extends RestController
 
 	public function batalkanPesanan_post()
 	{
-		$id = $this->input->get('id_pesanan');
+		$id = $this->input->post('id_pesanan');
 
 		$filter = array();
 		$filter['id_pesanan'] = $this->post('id_pesanan');		

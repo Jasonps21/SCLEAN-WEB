@@ -1,13 +1,15 @@
 <?php
 
 class Checkout_model extends MY_Model
-{    
+{
     function AutoNumbering()
     {
+        date_default_timezone_set('Asia/makassar');
         $today = date('Ymd');
-        $data = $this->db->query("SELECT MAX(nomor_pesanan) AS last FROM tbl_pemesan ")->row_array();
+        $today2 = date('Y-m-d');
+        $data = $this->db->query("SELECT MAX(nomor_pesanan) AS last FROM tbl_pemesan WHERE date(tgl_pesan) = '$today2'")->row_array();
         $lastNo = $data['last'];
-        $lastNoUrut   = substr($lastNo, 11, 3);
+        $lastNoUrut   = substr($lastNo, 12, 3);
         $nextNoUrut   = $lastNoUrut + 1;
         $nextNo = $today . sprintf('%03s', $nextNoUrut);
         return $nextNo;
@@ -128,7 +130,7 @@ class Checkout_model extends MY_Model
 
     function daftar_pesanan_by_user($id_user)
     {
-        $result = $this->db->query("SELECT p.*, l.nama_laundry, l.alamat, l.jam_buka, l.jam_tutup, l.nomor_telepon FROM `tbl_pemesan` p INNER JOIN tbl_laundry l ON l.id_laundry = p.id_laundry  WHERE p.id_user = '$id_user'")->result();
+        $result = $this->db->query("SELECT p.*, l.nama_laundry, l.alamat, l.jam_buka, l.jam_tutup, l.nomor_telepon FROM `tbl_pemesan` p INNER JOIN tbl_laundry l ON l.id_laundry = p.id_laundry  WHERE p.id_user = '$id_user' ORDER by p.tgl_pesan DESC")->result();
 
         if (!$this->db->error()) {
             $code = 500;
@@ -148,7 +150,7 @@ class Checkout_model extends MY_Model
     {
         $detail_pesanan  = $this->db->query("SELECT * FROM tbl_pemesan WHERE id_pesanan = '$id_pemesanan'")->row_array();
 
-        $daftar_layanan  = $this->db->query("SELECT pd.*, ll.nama_layanan, ll.satuan FROM tbl_pemesan_detail pd INNER JOIN tbl_pemesan p ON p.id_pesanan = pd.id_pemesanan INNER JOIN tbl_layanan_laundry ll ON ll.id = pd.id_layanan WHERE pd.id_pemesanan = '$id_pemesanan'")->result();
+        $daftar_layanan  = $this->db->query("SELECT pd.*, ll.nama_layanan, ll.satuan, ll.estimasi FROM tbl_pemesan_detail pd INNER JOIN tbl_pemesan p ON p.id_pesanan = pd.id_pemesanan INNER JOIN tbl_layanan_laundry ll ON ll.id = pd.id_layanan WHERE pd.id_pemesanan = '$id_pemesanan'")->result();
 
         $detail_pesanan['daftar_layanan'] = $daftar_layanan;
 
@@ -167,25 +169,38 @@ class Checkout_model extends MY_Model
     }
 
     function cancel_checkout($where)
-    {        
+    {
         date_default_timezone_set('Asia/makassar');
-        $this->db->where('id_pesanan', $where);
-        $this->db->set('status', 3);
-        
-        $this->db->set('tgl_status', date('Y-m-d h:i:s'));
-        $this->db->update('tbl_pemesan');
 
-        if (!$this->db->error()) {
-            $code = 500;
-            $message = "Gagal Batalkan Pesanan";
-            $dataResponse = NULL;
-            $error = TRUE;
-        } else {
-            $code = 201;
-            $message = "Berhasil Batalkan Pesanan";
-            $dataResponse = NULL;
-            $error = NULL;
+        $cek_id = $this->db->query("select * from tbl_pemesan where id_pesanan = '$where'");
+
+        if ($cek_id) {
+            if ($cek_id->num_rows()) {
+                $this->db->where('id_pesanan', $where);
+                $this->db->set('status', 3);
+
+                $this->db->set('tgl_status', date('Y-m-d h:i:s'));
+                $this->db->update('tbl_pemesan');
+
+                if (!$this->db->error()) {
+                    $code = 500;
+                    $message = "Gagal Batalkan Pesanan";
+                    $dataResponse = NULL;
+                    $error = TRUE;
+                } else {
+                    $code = 201;
+                    $message = "Berhasil Batalkan Pesanan";
+                    $dataResponse = NULL;
+                    $error = NULL;
+                }
+            } else {
+                $code = 404;
+                $message = "Id " . $where . " tidak ditemukan ";
+                $dataResponse = NULL;
+                $error = TRUE;
+            }
         }
+
         return $this->generateResponse($message, $dataResponse, $error, $code);
     }
 }
