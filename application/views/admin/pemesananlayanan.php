@@ -26,7 +26,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="data-tables">
-                        <table id="table1" class="text-center">
+                        <table id="table_pemesan" class="text-center">
                             <thead class="bg-light text-capitalize">
                                 <tr>
                                     <th width="10%">No Nota</th>
@@ -73,7 +73,7 @@
                                             ?>
                                         </td>
                                         <td class="text-center">
-                                            <a class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="bottom" title="Detail Pemesanan" href="<?php echo  base_url() ?>Pemesanan/detail_pesanan/<?php echo $u->id_pesanan ?>"><i class="ti-eye"></i></a>
+                                            <a class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="bottom" title="Detail Pemesanan" href="<?php echo  base_url() ?>Pemesanan/detail_pesanan/<?php echo $u->id_pesanan . "/". $u->nomor_pesanan ?> ?>"><i class="ti-eye"></i></a>
                                             <?php if ($u->status === '0') { ?>
                                                 <a class="btn btn-sm btn-info" data-toggle="tooltip" data-placement="bottom" title="Konfirmasi Pesanan" href="<?php echo base_url() . 'Pemesanan/update_status/' . $u->id_pesanan . '/1' ?>"><i class="ti-check"></i></a>
                                             <?php } ?>

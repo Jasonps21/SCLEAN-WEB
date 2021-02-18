@@ -52,6 +52,11 @@
                                 <label class="text-black" for="alamat">Alamat</label>
                                 <input type="text" name="alamat" class="form-control" required>
                             </div>
+                            
+                            <div class="form-group col-md-12">
+                                <label class="text-black" for="biaya_pengantaran">biaya_pengantaran</label>
+                                <input type="number" name="biaya_pengantaran" class="form-control" required>
+                            </div>
 
                             <div class="form-group col-md-12">
                                 <label class="text-black" for="deskripsi">Deskripsi</label>

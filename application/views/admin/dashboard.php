@@ -3,7 +3,7 @@
         <div class="container">
             <div class="error-content">
                 <h2>Hai Admin</h2>
-                <p>Silahkan atur barang barang jualan anda</p>
+                <p>Silahkan atur pesanan laundry anda</p>
             </div>
         </div>
     </div>

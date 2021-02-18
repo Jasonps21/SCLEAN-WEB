@@ -71,15 +71,21 @@
                                     <li <?php if ($this->uri->segment(1) === "Laundry") {
                                             echo 'class="active"';
                                         } ?>><a href="<?php echo base_url(); ?>Laundry"><i class="ti-package"></i><span>Laundry</span></a></li>
-                                    <li <?php if ($this->uri->segment(1) == "Admin") {
-                                            echo 'class="active"';
-                                        } ?>><a href="<?php echo base_url(); ?>Admin"><i class="ti-star"></i><span>Admin</span></a></li>
-                                    <li <?php if ($this->uri->segment(1) == "Pengguna") {
-                                            echo 'class="active"';
-                                        } ?>><a href="<?php echo base_url(); ?>Pengguna"><i class="ti-user"></i><span>Pengguna</span></a></li>
-                                    <li <?php if ($this->uri->segment(1) === "Promosi") {
-                                            echo 'class="active"';
-                                        } ?>><a href="<?php echo base_url(); ?>Promosi"><i class="ti-gift"></i><span>Promosi</span></a></li>
+                                    <?php
+                                    $isLoggedIn = $this->session->userdata('status');
+                                    
+                                    if ($isLoggedIn === "Admin") {
+                                    ?>
+                                        <li <?php if ($this->uri->segment(1) == "Admin") {
+                                                echo 'class="active"';
+                                            } ?>><a href="<?php echo base_url(); ?>Admin"><i class="ti-star"></i><span>Admin</span></a></li>
+                                        <li <?php if ($this->uri->segment(1) == "Pengguna") {
+                                                echo 'class="active"';
+                                            } ?>><a href="<?php echo base_url(); ?>Pengguna"><i class="ti-user"></i><span>Pengguna</span></a></li>
+                                        <li <?php if ($this->uri->segment(1) === "Promosi") {
+                                                echo 'class="active"';
+                                            } ?>><a href="<?php echo base_url(); ?>Promosi"><i class="ti-gift"></i><span>Promosi</span></a></li>
+                                    <?php } ?>
                                 </ul>
                             </li>
                             <li <?php if ($this->uri->segment(1) == "Pemesanan" or $this->uri->segment(1) == "") {
@@ -89,7 +95,7 @@
                                 <ul class="collapse">
                                     <li <?php if ($this->uri->segment(1) == "Pemesanan") {
                                             echo 'class="active"';
-                                        } ?>><a href="<?php echo base_url() ?>Pemesanan"><i class="ti-shopping-cart"></i><span>Pemesanan Barang</span></a></li>
+                                        } ?>><a href="<?php echo base_url() ?>Pemesanan"><i class="ti-shopping-cart"></i><span>Pemesanan Laundry</span></a></li>
                             </li>
                         </ul>
                         </li>

@@ -17,7 +17,9 @@ class Laundry extends CI_Controller
     {
         $this->isLoggedAdminIn();
         $data['pagetitle'] = "Laundry";
-        $data['daftarLaundry'] = $this->Laundry_model->daftarLaundry()->result();
+        $isLoggedIn = $this->session->userdata('status');
+        $id_pemilik =  $isLoggedIn === "Admin" ? 0 : $this->session->userdata('id');                
+        $data['daftarLaundry'] = $this->Laundry_model->daftarLaundry($id_pemilik)->result();
         $this->load->template('admin/laundry', $data);
     }
 
@@ -31,7 +33,7 @@ class Laundry extends CI_Controller
     public function daftar_layanan($id_laundry)
     {
         $this->isLoggedAdminIn();
-        $data['pagetitle'] = "Daftar Layanan";
+        $data['pagetitle'] = "Daftar Layanan";        
         $data['daftarLayanan'] = $this->Laundry_model->daftarLayanan($id_laundry)->result();
         $this->load->template('admin/layanan_laundry', $data);
     }
@@ -52,7 +54,9 @@ class Laundry extends CI_Controller
         $jam_buka = $this->input->post('jam_buka');
         $jam_tutup = $this->input->post('jam_tutup');
         $alamat = $this->input->post('alamat');
+        $biaya_pengantaran = $this->input->post('biaya_pengantaran');
         $deskripsi = $this->input->post('deskripsi');
+        $id_pemilik = $this->session->userdata('id');
 
         $config['upload_path'] = './assets/images/produk';
         $config['allowed_types'] = 'jpg|png|bmp';
@@ -74,8 +78,10 @@ class Laundry extends CI_Controller
                 'jam_tutup' => $jam_tutup,
                 'nomor_telepon' => $nomor_telepon,
                 'alamat' => $alamat,
+                'biaya_pengantaran' => $biaya_pengantaran,
                 'deskripsi' => $deskripsi,
                 'photo' => $nama_gambar,
+                'id_pemilik' => $id_pemilik,
                 'create_date' => date('Y-m-d h:i:s')
             );
 
@@ -99,8 +105,10 @@ class Laundry extends CI_Controller
         $jam_buka = $this->input->post('jam_buka');
         $jam_tutup = $this->input->post('jam_tutup');
         $alamat = $this->input->post('alamat');
+        $biaya_pengantaran = $this->input->post('biaya_pengantaran');
         $deskripsi = $this->input->post('deskripsi');
         $gambar = $this->input->post('gambar');
+        $id_pemilik = $this->session->userdata('id');
 
         if ($_FILES['myPhoto']['size'] == 0) {
             $data = array(
@@ -109,7 +117,9 @@ class Laundry extends CI_Controller
                 'jam_tutup' => $jam_tutup,
                 'nomor_telepon' => $nomor_telepon,
                 'alamat' => $alamat,
+                'biaya_pengantaran' => $biaya_pengantaran,
                 'deskripsi' => $deskripsi,
+                'id_pemilik' => $id_pemilik,
                 'update_date' => date('Y-m-d h:i:s')
             );
         } else {

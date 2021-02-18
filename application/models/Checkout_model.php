@@ -41,7 +41,7 @@ class Checkout_model extends MY_Model
 
     function detail_pemesan($id_pemesanan)
     {
-        return $this->db->query("SELECT `tbl_pemesan`.`id_pemesanan`, `tbl_pemesan`.`tgl_pesan`, `tbl_pemesan`.`total`, `tbl_pemesan`.`catatan_order`, `tbl_pemesan`.`status`, `tbl_pemesan`.`tgl_bayar`, `tbl_pemesan`.`catatan_order`, `tbl_user`.`id_user`, `tbl_user`.`nama`, `tbl_user`.`email`, `tbl_user`.`nomor_hp`, `tbl_user`.`alamat`, `tbl_user`.`kota`, `tbl_user`.`kecamatan`, `tbl_user`.`kelurahan`, `tbl_user`.`kode_pos`, `tbl_user`.`nama_toko` FROM `tbl_pemesan` INNER JOIN `tbl_user` ON `tbl_user`.`id_user` = `tbl_pemesan`.`id_user` WHERE `tbl_pemesan`.`id_pemesanan` = '" . $id_pemesanan . "'");
+        return $this->db->query("SELECT `tbl_pemesan`.`id_pesanan`, `tbl_pemesan`.`nomor_pesanan`, `tbl_pemesan`.`biaya_pengantaran`, `tbl_pemesan`.`tgl_pesan`,  `tbl_pemesan`.`tgl_konfirmasi`,  `tbl_pemesan`.`tgl_status`,  `tbl_pemesan`.`tgl_selesai`, `tbl_pemesan`.`total`, `tbl_pemesan`.`catatan_order`, `tbl_pemesan`.`status`, `tbl_pemesan`.`catatan_order`, `tbl_user`.`id_user`, `tbl_user`.`nama_lengkap`, `tbl_user`.`email`, `tbl_user`.`nomor_hp`, `tbl_user`.`alamat`, `tbl_user`.`kota`, `tbl_user`.`kecamatan`, `tbl_user`.`kelurahan`, `tbl_user`.`kode_pos` FROM `tbl_pemesan` INNER JOIN `tbl_user` ON `tbl_user`.`id_user` = `tbl_pemesan`.`id_user` WHERE `tbl_pemesan`.`id_pesanan` = '" . $id_pemesanan . "'");
     }
 
     function jmhStok($id_barang)
@@ -49,19 +49,19 @@ class Checkout_model extends MY_Model
         return $this->db->query("SELECT `stok` FROM `tbl_barang` WHERE id_barang = '" . $id_barang . "'");
     }
 
-    function daftar_pemesan()
+    function daftar_pemesan($id_pemilik)
     {
-        return $this->db->query("SELECT p.id_pesanan, p.nomor_pesanan, u.nama_lengkap, u.alamat, u.kota, u.kecamatan, u.kelurahan, u.kode_pos, l.nama_laundry, p.tgl_pesan, p.total, p.`status` FROM `tbl_pemesan` p INNER JOIN tbl_laundry l ON l.id_laundry = p.id_laundry INNER JOIN tbl_user u ON u.id_user = p.id_user");
+        return $this->db->query("SELECT p.id_pesanan, p.nomor_pesanan, u.nama_lengkap, u.alamat, u.kota, u.kecamatan, u.kelurahan, u.kode_pos, l.nama_laundry, p.tgl_pesan, p.total, p.`status` FROM `tbl_pemesan` p INNER JOIN tbl_laundry l ON l.id_laundry = p.id_laundry INNER JOIN tbl_user u ON u.id_user = p.id_user WHERE IF( 0 <> $id_pemilik , id_pemilik = '$id_pemilik', TRUE) ORDER BY p.tgl_pesan DESC");
     }
 
     function daftar_pemesan_by_user($where)
     {
-        return $this->db->query("SELECT `tbl_pemesan`.`id_pemesanan`, `tbl_pemesan`.`tgl_pesan`, `tbl_pemesan`.`tgl_bayar`,`tbl_pemesan`.`status`, `tbl_pemesan`.`file`, `tbl_pemesan`.`total`, `tbl_user`.`id_user`, `tbl_user`.`nama`, `tbl_user`.`email`, `tbl_user`.`nomor_hp`, `tbl_user`.`alamat`, `tbl_user`.`kota`, `tbl_user`.`kecamatan`, `tbl_user`.`kelurahan`, `tbl_user`.`kode_pos`, `tbl_user`.`nama_toko` FROM `tbl_pemesan` INNER JOIN `tbl_user` ON `tbl_user`.`id_user` = `tbl_pemesan`.`id_user` where `tbl_pemesan`.`id_user`='" . $where . "'order by `tbl_pemesan`.`tgl_pesan` DESC ");
+        return $this->db->query("SELECT `tbl_pemesan`.`id_pesanan`, `tbl_pemesan`.`tgl_pesan`, `tbl_pemesan`.`tgl_bayar`,`tbl_pemesan`.`status`, `tbl_pemesan`.`total`, `tbl_user`.`id_user`, `tbl_user`.`nama`, `tbl_user`.`email`, `tbl_user`.`nomor_hp`, `tbl_user`.`alamat`, `tbl_user`.`kota`, `tbl_user`.`kecamatan`, `tbl_user`.`kelurahan`, `tbl_user`.`kode_pos`, `tbl_user`.`nama_toko` FROM `tbl_pemesan` INNER JOIN `tbl_user` ON `tbl_user`.`id_user` = `tbl_pemesan`.`id_user` where `tbl_pemesan`.`id_user`='" . $where . "'");
     }
 
-    function detail_order_barang($id_pemesanan)
+    function detail_pesanan_layanan($id_pemesanan)
     {
-        return $this->db->query("SELECT `tbl_pemesan_detail`.`id_pemesanan`, `tbl_pemesan_detail`.`id_barang`,`tbl_pemesan_detail`.`stok`, `tbl_pemesan_detail`.`harga`, `tbl_pemesan_detail`.`total`, `tbl_barang`.`nama_barang` FROM `tbl_pemesan_detail` INNER JOIN `tbl_barang` ON `tbl_barang`.`id_barang` = `tbl_pemesan_detail`.`id_barang` WHERE `tbl_pemesan_detail`.`id_pemesanan` =  '" . $id_pemesanan . "'");
+        return $this->db->query("SELECT ll.nama_layanan, pd.harga, pd.total, pd.qty, ll.satuan FROM tbl_pemesan_detail pd INNER JOIN tbl_layanan_laundry ll ON ll.id = pd.id_layanan WHERE pd.id_pemesanan = '" . $id_pemesanan . "'");
     }
 
     #UNTUK MODEL API
@@ -87,13 +87,18 @@ class Checkout_model extends MY_Model
                     $total += $each_layanan->qty * $each_layanan->harga;
                 }
 
+                $id_laundry = $dataRequest['id_laundry'];
+
+                $biaya_pengantaran = $this->db->query("SELECT biaya_pengantaran FROM tbl_laundry where id_laundry = '$id_laundry'")->row_array()['biaya_pengantaran'];
+
                 $data_pemesan = array(
                     'id_pesanan' => $id_pemesanan,
                     'nomor_pesanan' => 'INV-' . $this->AutoNumbering(),
                     'id_user' => $dataRequest['id_user'],
                     'id_laundry' => $dataRequest['id_laundry'],
+                    'biaya_pengantaran' => $biaya_pengantaran,
                     'tgl_pesan' => date('Y-m-d h:i:s'),
-                    'total' => $total
+                    'total' => $total + $biaya_pengantaran
                 );
                 $this->db->insert('tbl_pemesan', $data_pemesan);
 
@@ -156,12 +161,12 @@ class Checkout_model extends MY_Model
 
         if (!$this->db->error()) {
             $code = 500;
-            $message = "Gagal Registrasi";
+            $message = "Gagal Mendapatkan data";
             $dataResponse = NULL;
             $error = TRUE;
         } else {
             $code = 201;
-            $message = "Berhasil Registrasi";
+            $message = "Berhasil Mendapatkan data";
             $dataResponse = $detail_pesanan;
             $error = NULL;
         }

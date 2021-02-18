@@ -106,7 +106,7 @@ class CI_Controller {
     function isLoggedAdminIn() {
         $isLoggedIn = $this->session->userdata ( 'status' );
 
-        if (! isset ( $isLoggedIn ) || $isLoggedIn != "Admin") {
+        if ( $isLoggedIn !== "Admin" && $isLoggedIn !== "Pemilik_laundry") {
             redirect ( base_url('access_denied' ));
         }
     }

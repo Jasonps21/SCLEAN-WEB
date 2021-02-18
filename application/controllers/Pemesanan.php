@@ -15,7 +15,9 @@ class Pemesanan extends CI_Controller
     {
         $this->isLoggedAdminIn();
         $data['pagetitle'] = "Daftar Permintaan Layanan";
-        $data['daftarPemesan'] = $this->Checkout_model->daftar_pemesan()->result();
+        $isLoggedIn = $this->session->userdata('status');
+        $id_pemilik =  $isLoggedIn === "Admin" ? 0 : $this->session->userdata('id');
+        $data['daftarPemesan'] = $this->Checkout_model->daftar_pemesan($id_pemilik)->result();
         $this->load->template('admin/pemesananlayanan', $data);
     }
 
@@ -89,12 +91,12 @@ class Pemesanan extends CI_Controller
         redirect(base_url("Pemesanan"));
     }
 
-    function detailOrderan($id_pemesanan)
+    function detail_pesanan($id_pemesanan, $no_invoice)
     {
         $this->isLoggedAdminIn();
-        $data['pagetitle'] = "Detail Pemesanan #" . $id_pemesanan;
+        $data['pagetitle'] = "Detail Pemesanan #" . $no_invoice;
         $data['detailpemesanan'] = $this->Checkout_model->detail_pemesan($id_pemesanan)->row_array();
-        $data['detailorder'] = $this->Checkout_model->detail_order_barang($id_pemesanan)->result();
+        $data['detailorder'] = $this->Checkout_model->detail_pesanan_layanan($id_pemesanan)->result();
         $this->load->template('admin/detailorderan', $data);
     }
 

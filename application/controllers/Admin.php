@@ -24,12 +24,13 @@ class Admin extends CI_Controller
         $nama = $this->input->post('nama');
         $email = $this->input->post('email');
         $password = $this->input->post('password');
+        $status = $this->input->post('status');
 
         $data = array(
             'nama' => $nama,
             'email' => $email,
             'password' => md5($password),
-            'status' => "Admin"
+            'status' => $status
         );
 
         $where = array(
@@ -60,17 +61,18 @@ class Admin extends CI_Controller
         $nama = $this->input->post('nama');
         $email = $this->input->post('email');
         $password = $this->input->post('password');
+        $status = $this->input->post('status');
 
         if ($password == null) {
             $data = array(
                 'nama' => $nama,
-                'status' => "Admin"
+                'status' => $status
             );
         } else {
             $data = array(
                 'nama' => $nama,
                 'password' => md5($password),
-                'status' => "Admin"
+                'status' => $status
             );
         }
 

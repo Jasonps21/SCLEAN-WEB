@@ -32,9 +32,9 @@ class Laundry_model extends MY_Model
         $this->db->update('tbl_laundry', $data);
     }
 
-    function daftarLaundry()
+    function daftarLaundry($id_pemilik)
     {
-        $result = $this->db->query("SELECT * FROM `tbl_laundry`");
+        $result = $this->db->query("SELECT a.nama, a.email, l.* FROM `tbl_laundry` l INNER JOIN tbl_admin a ON a.id = l.id_pemilik WHERE IF( 0 <> $id_pemilik , id_pemilik = '$id_pemilik', TRUE)");
         return $result;
     }
 

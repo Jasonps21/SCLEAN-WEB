@@ -5,7 +5,7 @@
             $this->load->helper('form');
             $error = $this->session->flashdata('error');
             if ($error) {
-                ?>
+            ?>
                 <div class="no-padding">
                     <div class="alert alert-danger" role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -15,7 +15,7 @@
             <?php }
             $success = $this->session->flashdata('success');
             if ($success) {
-                ?>
+            ?>
                 <div class="no-padding">
                     <div class="alert alert-success alert-dismissable">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -26,8 +26,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="align-items-center">
-                        <button class="btn btn-primary btn-sm float-right" data-toggle="modal"
-                                data-target="#adminModal" href="#" target="_blank">Tambah Admin</button>
+                        <button class="btn btn-primary btn-sm float-right" data-toggle="modal" data-target="#adminModal" href="#" target="_blank">Tambah Admin</button>
                     </div>
                     <br>
                     <br>
@@ -35,35 +34,30 @@
                     <div class="data-tables">
                         <table id="table1" class="text-center">
                             <thead class="bg-light text-capitalize">
-                            <tr>
-                                <th>No</th>
-                                <th>Nama</th>
-                                <th>Email</th>
-                                <th>Terakhir Login</th>
-                                <th>Opsi</th>
-                            </tr>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Email</th>
+                                    <th>Terakhir Login</th>
+                                    <th>Opsi</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <?php
-                            $no = 1;
-                            foreach ($daftarAdmin as $u) {
+                                <?php
+                                $no = 1;
+                                foreach ($daftarAdmin as $u) {
                                 ?>
-                                <tr>
-                                    <td class="text-center"><?php echo $no++ ?></td>
-                                    <td class="text-center"><?php echo $u->nama ?></td>
-                                    <td class="text-center"><?php echo $u->email ?></td>
-                                    <td class="text-center"><?php echo $u->last_login ?></td>
-                                    <td class="text-center">
-                                        <a class="btn btn-sm btn-warning"
-                                           data-toggle="modal" data-target=#editAdminModal onClick="editadmin('<?php echo $u->id?>','<?php echo $u->nama?>','<?php echo $u->email?>')"
-                                           href="#"><i class="ti-pencil"></i></a>
-                                        <a class="btn btn-sm btn-danger"
-                                           onclick="javascript: return confirm('Apakah Anda yakin ingin hapus data ini?')"
-                                           href="<?php echo base_url() . 'Admin/hapus_admin/' . $u->id ?>"><i
-                                                    class="ti-trash"></i></a>
-                                    </td>
-                                </tr>
-                            <?php } ?>
+                                    <tr>
+                                        <td class="text-center"><?php echo $no++ ?></td>
+                                        <td class="text-center"><?php echo $u->nama ?></td>
+                                        <td class="text-center"><?php echo $u->email ?></td>
+                                        <td class="text-center"><?php echo $u->last_login ?></td>
+                                        <td class="text-center">
+                                            <a class="btn btn-sm btn-warning" data-toggle="modal" data-target=#editAdminModal onClick="editadmin('<?php echo $u->id ?>','<?php echo $u->nama ?>','<?php echo $u->email ?>', '<?php echo $u->status ?>')" href="#"><i class="ti-pencil"></i></a>
+                                            <a class="btn btn-sm btn-danger" onclick="javascript: return confirm('Apakah Anda yakin ingin hapus data ini?')" href="<?php echo base_url() . 'Admin/hapus_admin/' . $u->id ?>"><i class="ti-trash"></i></a>
+                                        </td>
+                                    </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>
@@ -75,8 +69,7 @@
 </div>
 
 <!--Modal Tambah Admin-->
-<div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel"
-     aria-hidden="true">
+<div class="modal fade" id="adminModal" tabindex="-1" role="dialog" aria-labelledby="adminModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
 
@@ -109,6 +102,18 @@
                     </div>
 
                     <div class="form-group">
+                        <label class="text-black" for="nama">Password</label> <br>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" checked id="customRadio4" name="status" value="Admin" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio4">Admin</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="customRadio5" name="status" value="Pemilik_laundry" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio5">Pemilik Laundry</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
                         <input type="submit" class="btn btn-primary btn-lg btn-block" value="Simpan">
                     </div>
 
@@ -121,8 +126,7 @@
 <!--End Modal Tambah ADmin-->
 
 <!--Modal edit Admin-->
-<div class="modal fade" id="editAdminModal" tabindex="-1" role="dialog" aria-labelledby="editadminModalLabel"
-     aria-hidden="true">
+<div class="modal fade" id="editAdminModal" tabindex="-1" role="dialog" aria-labelledby="editadminModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
 
@@ -153,6 +157,18 @@
                     <div class="form-group">
                         <label class="text-black" for="nama">Password</label>
                         <input type="password" id="password" name="password" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="text-black" for="nama">Password</label> <br>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="rb_admin" name="status" value="Admin" class="custom-control-input">
+                            <label class="custom-control-label" for="rb_admin">Admin</label>
+                        </div>
+                        <div class="custom-control custom-radio custom-control-inline">
+                            <input type="radio" id="rb_pemilik_laundry" name="status" value="Pemilik_laundry" class="custom-control-input">
+                            <label class="custom-control-label" for="rb_pemilik_laundry">Pemilik Laundry</label>
+                        </div>
                     </div>
 
                     <div class="form-group">

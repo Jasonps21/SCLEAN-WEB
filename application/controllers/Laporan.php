@@ -19,7 +19,9 @@ class Laporan extends CI_Controller
         $data['tgl_akhir'] = $tgl_akhir;
         $this->isLoggedAdminIn();
         $data['pagetitle'] = "Laporan Transaksi";
-        $data['daftartransaksi'] = $this->Laporan_model->daftarLaporan($tgl_awal, $tgl_akhir)->result();
+        $isLoggedIn = $this->session->userdata('status');
+        $id_pemilik =  $isLoggedIn === "Admin" ? 0 : $this->session->userdata('id');
+        $data['daftartransaksi'] = $this->Laporan_model->daftarLaporan($tgl_awal, $tgl_akhir, $id_pemilik)->result();
         $this->load->template('admin/laporanpenjualan', $data);
     }
 
@@ -32,7 +34,9 @@ class Laporan extends CI_Controller
         $data['pagetitle'] = "Laporan Transaksi";
         $data['tgl_awal'] = $tgl_awal;
         $data['tgl_akhir'] = $tgl_akhir;
-        $data['daftartransaksi'] = $this->Laporan_model->daftarLaporan($tgl_awal, $tgl_akhir)->result();
+        $isLoggedIn = $this->session->userdata('status');
+        $id_pemilik =  $isLoggedIn === "Admin" ? 0 : $this->session->userdata('id');
+        $data['daftartransaksi'] = $this->Laporan_model->daftarLaporan($tgl_awal, $tgl_akhir, $id_pemilik)->result();
         $this->load->template('admin/laporanpenjualan', $data);
     }
 

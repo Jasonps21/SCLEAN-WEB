@@ -4,7 +4,9 @@
 <footer>
     <div class="footer-area">
         <p>© Copyright
-            <script>document.write(new Date().getFullYear());</script>
+            <script>
+                document.write(new Date().getFullYear());
+            </script>
             . All right reserved.
         </p>
     </div>
@@ -61,8 +63,13 @@
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#table1').DataTable();
+        $('#table_pemesan').DataTable({
+            "order": [
+                [3, "desc"]
+            ]
+        });
     });
 
     var tgl_awal = $('#startDate').val();
@@ -100,10 +107,15 @@
         document.getElementById('satuane').value = satuan;
     }
 
-    function editadmin(id, nama, email) {
+    function editadmin(id, nama, email, status) {
         document.getElementById('id').value = id;
         document.getElementById('nama').value = nama;
         document.getElementById('email').value = email;
+        if(status === "Admin"){
+            document.getElementById('rb_admin').checked = true;
+        }else{
+            document.getElementById('rb_pemilik_laundry').checked = true;
+        }
     }
 
     function editPromosi(id, photo, keterangan, tgl_awal, tgl_akhir) {
@@ -117,12 +129,12 @@
     function PreviewImage() {
         var oFReader = new FileReader();
         oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
-        oFReader.onload = function (oFREvent) {
+        oFReader.onload = function(oFREvent) {
             document.getElementById("uploadPreview").src = oFREvent.target.result;
         };
     };
 
-    $(function () {
+    $(function() {
         $('[data-toggle="tooltip"]').tooltip()
     })
 
