@@ -50,6 +50,12 @@ class Laundry_model extends MY_Model
         return $result;
     }
 
+    function set_recommend($id_laundry)
+    {
+        $result = $this->db->query("UPDATE tbl_laundry SET is_recommend = if(is_recommend = 0, 1, 0) WHERE id_laundry = '" . $id_laundry . "'");
+        return $result;
+    }
+
     #MODEL LAYANAN LAUNDRY
     function input_layanan($data)
     {
@@ -69,9 +75,33 @@ class Laundry_model extends MY_Model
     }
 
     #MODEL UNTUK API
-    function daftar_laundry_api()
+    function daftar_laundry_api($is_recommend)
     {
-        $result = $this->db->query("SELECT * FROM `tbl_laundry`");
+        $result = $this->db->query("SELECT * FROM `tbl_laundry` WHERE IF( 0 <> $is_recommend, is_recommend = 1, TRUE)");
+
+        $data = array();
+        foreach ($result->result() as $a) {
+            $a->photo = 'assets/images/produk/' . $a->photo;
+            array_push($data, $a);
+        }
+
+        if (!$this->db->error()) {
+            $code = 500;
+            $message = "Gagal tampil";
+            $dataResponse = NULL;
+            $error = TRUE;
+        } else {
+            $code = 201;
+            $message = "Berhasil tampilkan data";
+            $dataResponse = $data;
+            $error = NULL;
+        }
+        return $this->generateResponse($message, $dataResponse, $error, $code);
+    }
+
+    function daftar_laundry_rekomendasi_api()
+    {
+        $result = $this->db->query("SELECT * FROM tbl_laundry WHERE is_recommend = 1");
 
         $data = array();
         foreach ($result->result() as $a) {

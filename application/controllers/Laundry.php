@@ -171,6 +171,20 @@ class Laundry extends CI_Controller
         }
     }
 
+    public function laundry_set_recommend($id_laundry)
+    {
+                    
+        $result = $this->Laundry_model->set_recommend($id_laundry);
+
+        if (!$result) {
+            $this->session->set_flashdata('error', 'Data gagal diupdate');
+            redirect(base_url('Laundry'));
+        } else {
+            $this->session->set_flashdata('success', 'Laundry Berhasil set rekomendasi');
+            redirect(base_url('Laundry'));
+        }
+    }
+
     public function hapus_laundry($id, $gambar)
     {
         $data = array(

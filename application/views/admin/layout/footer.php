@@ -61,6 +61,8 @@
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
 
 <script>
     $(document).ready(function() {
@@ -70,6 +72,11 @@
                 [3, "desc"]
             ]
         });
+        // $('.selectpicker').selectpicker();
+    });
+
+    $(function() {
+        $('.selectpicker').selectpicker();
     });
 
     var tgl_awal = $('#startDate').val();
@@ -111,9 +118,9 @@
         document.getElementById('id').value = id;
         document.getElementById('nama').value = nama;
         document.getElementById('email').value = email;
-        if(status === "Admin"){
+        if (status === "Admin") {
             document.getElementById('rb_admin').checked = true;
-        }else{
+        } else {
             document.getElementById('rb_pemilik_laundry').checked = true;
         }
     }

@@ -21,6 +21,9 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.18/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.3/css/responsive.jqueryui.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/css/bootstrap-select.min.css"/> -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
 
     <!-- others css -->
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/typography.css">
@@ -73,7 +76,7 @@
                                         } ?>><a href="<?php echo base_url(); ?>Laundry"><i class="ti-package"></i><span>Laundry</span></a></li>
                                     <?php
                                     $isLoggedIn = $this->session->userdata('status');
-                                    
+
                                     if ($isLoggedIn === "Admin") {
                                     ?>
                                         <li <?php if ($this->uri->segment(1) == "Admin") {
@@ -102,7 +105,14 @@
                         <li>
                             <a href="javascript:void(0)" aria-expanded="true"><i class="ti-bar-chart"></i><span>Laporan</span></a>
                             <ul class="collapse">
-                                <li><a href="<?php echo base_url() ?>Laporan">Transaksi</a></li>
+                                <li><a href="<?php echo base_url() ?>Laporan">Semua Transaksi</a></li>
+                                <?php
+                                $isLoggedIn = $this->session->userdata('status');
+
+                                if ($isLoggedIn === "Admin") {
+                                ?>
+                                    <li><a href="<?php echo base_url() ?>Laporan/Laporan_admin">Transaksi by Laundry</a></li>
+                                <?php } ?>
                             </ul>
                         </li>
                         </ul>

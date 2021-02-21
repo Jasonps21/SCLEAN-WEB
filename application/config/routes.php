@@ -68,17 +68,6 @@ $route['api/v1/detail_pesanan'] = 'api/PesananController/historyPesananDetail';
 $route['api/v1/batalkan_pesanan'] = 'api/PesananController/batalkanPesanan';
 $route['api/v1/promosi_all'] = 'api/PromosiController/AllPromosiLaundry';
 
-//user
-$route['login'] = 'user/login';
-$route['CariProduk'] = 'Product/cari_produk';
-$route['KategoriProduk/(:any)'] = 'Product/kategori_produk/$1';
-$route['register'] = 'user/register';
-$route['logout'] = 'user/logout';
-$route['About'] = 'beranda/about';
-$route['Konfirmasi/(:any)'] = 'Checkout/konfirmasi_pembayaran/$1';
-$route['Thankyou'] = 'Checkout/thankyou';
-$route['DaftarPesanan'] = 'Pemesanan/daftarpesanan';
-
 //admin
 $route['admin_login'] = 'admin/login';
 $route['Pengguna'] = 'user/pengguna';

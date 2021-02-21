@@ -16,7 +16,12 @@ class LaundryController extends RestController
 
 	public function AllLaundry_get()
 	{
-		$response = $this->Laundry_model->daftar_laundry_api();
+		$is_recommend = $this->input->get('is_recommend');		
+		if (!isset($is_recommend)){
+			$is_recommend = 0;
+		}
+
+		$response = $this->Laundry_model->daftar_laundry_api($is_recommend);
 
 		$this->response($response["response"], $response["code"]);
     }

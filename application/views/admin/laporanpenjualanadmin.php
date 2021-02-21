@@ -2,6 +2,9 @@
     <div class="row">
         <div class="col-12 mt-5">
             <?php
+
+            use SebastianBergmann\CodeCoverage\Driver\Selector;
+
             $this->load->helper('form');
             $error = $this->session->flashdata('error');
             if ($error) {
@@ -28,7 +31,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <form action="<?php echo base_url(); ?>Laporan/LaporanByDate" method="POST">
+                            <form action="<?php echo base_url(); ?>Laporan/LaporanAdminByDate" method="POST">
                                 <div class="form-group">
                                     <label>Tanggal Transaksi</label>
                                     <div class="form-row align-items-center">
@@ -40,7 +43,19 @@
                                                 </div>
                                                 <input type="text" class="form-control" id="endDate" name="endDate" VALUE="<?php echo $tgl_akhir ?>">
                                             </div>
-                                        </div>                                        
+                                        </div>
+                                        <div class="col-3">
+                                            <select class="form-control selectpicker" data-live-search="true" name="id_laundry">
+                                                <?php
+                                                foreach ($daftarLaundry as $u) {
+                                                ?>
+                                                    <option value="<?php echo $u->id_laundry ?>" data-tokens="<?php echo $u->id_laundry ?>" <?php if ($id_laundry === $u->id_laundry) {
+                                                                                                                                                echo 'selected';
+                                                                                                                                            } ?>><?php echo $u->nama_laundry ?></option>
+                                                <?php } ?>
+                                            </select>
+
+                                        </div>
                                         <div class="col-auto">
                                             <input type="submit" id="lihat_buku_tahun" class="btn btn-primary" value="Cari">
                                         </div>

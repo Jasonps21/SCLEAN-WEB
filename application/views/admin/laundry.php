@@ -48,6 +48,7 @@
                                     <th width="10%">Nomor Telepon</th>
                                     <th width="10%">Biaya Pengantaran</th>
                                     <th width="8%">Jam Buka</th>
+                                    <th width="5%">Rekomendasi</th>
                                     <th width="10%">Opsi</th>
                                 </tr>
                             </thead>
@@ -71,10 +72,24 @@
                                     <td class="text-center"><?php echo $u->biaya_pengantaran ?></td>
                                     <td class="text-center"><?php echo date_format(new DateTime($u->jam_buka), 'H:i') . ' - ' . date_format(new DateTime($u->jam_tutup), 'H:i'); ?></td>
                                     <td class="text-center">
+                                        <?php
+                                        if ($u->is_recommend == 0) {
+                                        ?>
+                                            <span class="badge badge-danger">Tidak</span>
+                                        <?php
+                                        } else if ($u->is_recommend == 1) {
+                                        ?>
+                                            <span class="badge badge-success">Ya</span>
+                                        <?php
+                                        }
+                                        ?>
+                                    </td>
+                                    <td class="text-center">
                                         <a class="btn btn-sm btn-warning" href="<?php echo base_url() . 'Laundry/edit_laundry/' . $u->id_laundry ?>"><i class="ti-pencil"></i></a>
                                         <a class="btn btn-sm btn-danger" onclick="javascript: return confirm('Apakah Anda yakin ingin hapus data ini?')" href="<?php echo base_url() . 'Laundry/hapus_laundry/' . $u->id_laundry . '/' . $u->photo ?>"><i class="ti-trash"></i></a>
                                         <a class="btn btn-sm btn-info" href="<?php echo base_url() . 'Laundry/daftar_layanan/' . $u->id_laundry ?>"><i class="ti-eye"></i></a>
-                                    </td>
+                                        <a class="btn btn-sm <?php if ($u->is_recommend == 0) { echo 'btn-primary';} else { echo 'btn-dark';} ?>" <?php if ($u->is_recommend == 0) { echo 'data-toggle="tooltip" data-placement="bottom" title="Set Rekomendasi"';} else { echo 'data-toggle="tooltip" data-placement="bottom" title="Batal Rekomendasi"';} ?> href="<?php echo base_url() . 'Laundry/laundry_set_recommend/' . $u->id_laundry ?>"><i class="ti-star"></i></a>
+                                    </td>                                    
                                     </tr>
                                 <?php } ?>
                             </tbody>
