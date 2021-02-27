@@ -86,7 +86,11 @@
                             </thead>
                             <tbody>
                                 <?php
+                                $total_qty = 0;
+                                $total_penjualan = 0;
                                 foreach ($daftartransaksi as $u) {
+                                    $total_qty += $u->qty;
+                                    $total_penjualan += $u->total;
                                 ?>
                                     <tr>
                                         <td class="text-center"><?php echo $u->nomor_pesanan ?></td>
@@ -99,6 +103,14 @@
                                     </tr>
                                 <?php } ?>
                             </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="4">Total</th>
+                                    <th><?php echo $total_qty ?></th>
+                                    <th></th>
+                                    <th><?php echo "Rp. " . number_format($total_penjualan) ?></th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>

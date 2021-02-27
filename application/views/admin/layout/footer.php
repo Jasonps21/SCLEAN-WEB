@@ -72,6 +72,9 @@
                 [3, "desc"]
             ]
         });
+        $('#table_laporan').dataTable({
+
+        });
         // $('.selectpicker').selectpicker();
     });
 
@@ -83,6 +86,7 @@
     var tgl_akhir = $('#endDate').val();
 
     var table2 = $('#tabel_laporan_transaksi').DataTable({
+        "paging": false,
         dom: 'Bfrtip',
         lengthChange: false,
         buttons: [
