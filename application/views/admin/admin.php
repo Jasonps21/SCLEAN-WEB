@@ -102,7 +102,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="text-black" for="nama">Password</label> <br>
+                        <label class="text-black" for="nama">Role</label> <br>
                         <div class="custom-control custom-radio custom-control-inline">
                             <input type="radio" checked id="customRadio4" name="status" value="Admin" class="custom-control-input">
                             <label class="custom-control-label" for="customRadio4">Admin</label>
@@ -160,7 +160,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="text-black" for="nama">Password</label> <br>
+                        <label class="text-black" for="nama">Role</label> <br>
                         <div class="custom-control custom-radio custom-control-inline">
                             <input type="radio" id="rb_admin" name="status" value="Admin" class="custom-control-input">
                             <label class="custom-control-label" for="rb_admin">Admin</label>
